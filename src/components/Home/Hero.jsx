@@ -1,21 +1,21 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import ApplyPopup from "./ApplyPopup";  // import karo popup component
+import ApplyPopup from "./ApplyPopup";
 
 const Hero = () => {
   const componentRef = useRef(null);
   const buttonRef = useRef(null);
-  const [popupOpen, setPopupOpen] = useState(false);  // popup state
+  const [popupOpen, setPopupOpen] = useState(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { duration: 1, ease: "power3.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "linear" } });
 
-      tl.from(".hero-logo", { y: -30, opacity: 0 })
-        .from(".hero-heading-line", { yPercent: 110, stagger: 0.15 }, "-=0.6")
-        .from(".hero-subtitle", { y: 20, opacity: 0, duration: 0.8 }, "-=0.5")
-        .from(".hero-image", { scale: 1.05, opacity: 0, duration: 1, ease: "sine.out" }, "-=0.7")
-        .from(buttonRef.current, { opacity: 0, scale: 0.8, ease: "back.out(1.7)" }, "-=0.6");
+      tl.from(".hero-logo", { y: -20, opacity: 0, duration: 0.6 })
+        .from(".hero-heading-line", { y: 30, opacity: 0, stagger: 0.15, duration: 0.6 }, "-=0.4")
+        .from(".hero-subtitle", { y: 15, opacity: 0, duration: 0.5 }, "-=0.3")
+        .from(".hero-image", { scale: 0.95, opacity: 0, duration: 0.7 }, "-=0.4")
+        .from(buttonRef.current, { opacity: 0, scale: 1, duration: 0.5 }, "-=0.3");
     }, componentRef);
 
     return () => ctx.revert();
@@ -52,7 +52,7 @@ const Hero = () => {
         {/* CTA Button */}
         <div className="mt-5 sm:mt-6" ref={buttonRef}>
           <button
-            onClick={() => setPopupOpen(true)}  // open popup on click
+            onClick={() => setPopupOpen(true)}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 sm:px-6 rounded-full text-xs sm:text-base transition duration-300"
           >
             Apply for Access
