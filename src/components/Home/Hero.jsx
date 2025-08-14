@@ -24,7 +24,7 @@ const Hero = () => {
   return (
     <div
       ref={componentRef}
-      className="bg-white min-h-screen flex flex-col items-center justify-center px-4 py-12"
+      className="bg-white flex flex-col items-center justify-center px-4 py-0"
     >
       {/* Logo */}
       <div className="w-full max-w-[90vw] text-left">

@@ -67,7 +67,7 @@ const BestInfluencer = () => {
   return (
     <div
       ref={sectionRef}
-      className="w-[90vw] max-w-[1280px] mx-auto py-10 relative text-black font-sans"
+      className="w-[90vw] max-w-[1280px] mx-auto py-16 relative text-black font-sans"
     >
       {/* Glow Background */}
       <div className="absolute inset-0 z-0">
