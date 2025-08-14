@@ -9,13 +9,13 @@ const Hero = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "linear" } });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      tl.from(".hero-logo", { y: -20, opacity: 0, duration: 0.6 })
-        .from(".hero-heading-line", { y: 30, opacity: 0, stagger: 0.15, duration: 0.6 }, "-=0.4")
-        .from(".hero-subtitle", { y: 15, opacity: 0, duration: 0.5 }, "-=0.3")
-        .from(".hero-image", { scale: 0.95, opacity: 0, duration: 0.7 }, "-=0.4")
-        .from(buttonRef.current, { opacity: 0, scale: 1, duration: 0.5 }, "-=0.3");
+      tl.from(".hero-logo", { y: -20, opacity: 0, duration: 0.5 })
+        .from(".hero-heading-line", { y: 30, opacity: 0, stagger: 0.1, duration: 0.5 }, "-=0.3")
+        .from(".hero-subtitle", { y: 15, opacity: 0, duration: 0.4 }, "-=0.38")
+        .from(".hero-image", { scale: .9, opacity: 0, duration: 0.8 }, "-=0.4")
+        .from(buttonRef.current, { opacity: 0, scale: 1, duration: 0.4 }, "-=0.5");
     }, componentRef);
 
     return () => ctx.revert();
@@ -28,7 +28,13 @@ const Hero = () => {
     >
       {/* Logo */}
       <div className="w-full max-w-[90vw] text-left">
-        <h2 className="hero-logo text-lg sm:text-xl font-bold text-purple-600">UNFYER</h2>
+        <h2 className="hero-logo text-lg sm:text-xl font-bold text-purple-600">
+          <img
+            className="h-28"
+            src="https://ik.imagekit.io/b9tt0xvd7/unfyer/Untitled%20design%20(20).png?updatedAt=1755160725166"
+            alt="Logo"
+          />
+        </h2>
       </div>
 
       {/* Heading & Content */}

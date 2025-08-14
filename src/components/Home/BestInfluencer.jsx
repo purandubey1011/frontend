@@ -9,7 +9,6 @@ const BestInfluencer = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    console.log(document.querySelector(".watch-btn"));
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -17,48 +16,49 @@ const BestInfluencer = () => {
           start: "top 75%",
           toggleActions: "play none none reverse",
         },
+        defaults: { ease: "linear" }, // global linear easing
       });
 
       tl.from(".badge", {
-        y: -20,
+        y: -15,
         opacity: 0,
-        duration: 0.6,
-        ease: "power2.out",
+        duration: 0.4,
       })
         .from(".heading", {
-          y: 30,
+          y: 20,
           opacity: 0,
-          duration: 0.8,
-          ease: "power2.out",
+          duration: 0.5,
         })
         .from(
           ".left-text > div",
           {
-            x: -40,
+            x: -30,
             opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            stagger: 0.2,
+            duration: 0.45,
+            stagger: 0.15,
           },
-          "-=0.4"
+          "-=0.3"
         )
         .from(
           ".center-img",
-          { scale: 0.9, opacity: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.4"
+          { scale: 0.96, opacity: 0, duration: 0.5 },
+          "-=0.3"
         )
         .from(
           ".right-text > div",
           {
-            x: 40,
+            x: 30,
             opacity: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            stagger: 0.2,
+            duration: 0.45,
+            stagger: 0.15,
           },
-          "-=0.4"
+          "-=0.3"
         )
-         .to(".watch-btn", { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" });
+        .to(".watch-btn", {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+        });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -92,9 +92,7 @@ const BestInfluencer = () => {
           {/* Left Text */}
           <div className="left-text flex flex-col gap-6 sm:gap-10 text-left text-sm sm:text-lg">
             <div className="flex items-start gap-3">
-              <span className="text-purple-500 text-lg sm:text-xl mt-1">
-                ✴️
-              </span>
+              <span className="text-purple-500 text-lg sm:text-xl mt-1">✴️</span>
               <p>
                 The creator struggle{" "}
                 <span className="hidden md:inline">
@@ -104,9 +102,7 @@ const BestInfluencer = () => {
               </p>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-purple-500 text-lg sm:text-xl mt-1">
-                ✴️
-              </span>
+              <span className="text-purple-500 text-lg sm:text-xl mt-1">✴️</span>
               <p>How it works</p>
             </div>
           </div>
@@ -123,9 +119,7 @@ const BestInfluencer = () => {
           {/* Right Text */}
           <div className="right-text flex flex-col gap-6 sm:gap-10 text-left text-sm sm:text-lg">
             <div className="flex items-start gap-3">
-              <span className="text-purple-500 text-lg sm:text-xl mt-1">
-                ✴️
-              </span>
+              <span className="text-purple-500 text-lg sm:text-xl mt-1">✴️</span>
               <p>
                 Why only premium{" "}
                 <span className="hidden md:inline">
@@ -135,9 +129,7 @@ const BestInfluencer = () => {
               </p>
             </div>
             <div className="flex items-start gap-3">
-              <span className="text-purple-500 text-lg sm:text-xl mt-1">
-                ✴️
-              </span>
+              <span className="text-purple-500 text-lg sm:text-xl mt-1">✴️</span>
               <p>Why Unyfer exists</p>
             </div>
           </div>
@@ -145,12 +137,12 @@ const BestInfluencer = () => {
 
         {/* Watch Button */}
         <button
-  style={{ opacity: 0 }}
-  className="watch-btn relative z-20 mt-8 sm:mt-12 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#8e69ce] text-white text-sm sm:text-base font-medium rounded-full flex items-center gap-2 sm:gap-3 shadow-md hover:bg-[#a07cf8] transition"
->
-  <FaPlay className="text-xs sm:text-sm" />
-  Watch Intro
-</button>
+          style={{ opacity: 0 }}
+          className="watch-btn relative z-20 mt-8 sm:mt-12 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#8e69ce] text-white text-sm sm:text-base font-medium rounded-full flex items-center gap-2 sm:gap-3 shadow-md hover:bg-[#a07cf8] transition"
+        >
+          <FaPlay className="text-xs sm:text-sm" />
+          Watch Intro
+        </button>
       </div>
     </div>
   );
