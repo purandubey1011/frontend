@@ -30,7 +30,7 @@ const Hero = () => {
       <div className="w-full max-w-[90vw] text-left">
         <h2 className="hero-logo text-lg sm:text-xl font-bold text-purple-600">
           <img
-            className="h-28"
+            className="h-20 sm:h-28"
             src="https://ik.imagekit.io/b9tt0xvd7/unfyer/Untitled%20design%20(20).png?updatedAt=1755160725166"
             alt="Logo"
           />
