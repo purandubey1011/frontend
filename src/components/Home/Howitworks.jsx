@@ -38,9 +38,9 @@ useEffect(() => {
       {/* Image Section */}
       <div className="w-[60vw] sm:w-[30vw] h-[50vh] animate-item">
         <img
-          src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER_HOWITWORKS_DeI-y14lu.jpeg"
+          src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/HOWITWORKS_UNYFER_BmFXBWDS8.jpeg"
           alt="How It Works"
-          className="rounded-[24px] w-full h-full object-cover object-[center_22%]"
+          className="rounded-[24px] w-full h-full object-cover object-[center_55%]"
         />
       </div>
 

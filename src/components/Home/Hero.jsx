@@ -64,7 +64,7 @@ const Hero = () => {
             Apply for Access
           </button>
           <p className="text-gray-400 text-[10px] sm:text-xs mt-2">
-            Only for creators with 5,000+ followers
+            Only for creators with 50,000+ followers
           </p>
         </div>
       </div>
