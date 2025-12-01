@@ -129,7 +129,7 @@ const BestInfluencer = () => {
           <button
             style={{ opacity: 0 }}
             onClick={() => setOpenVideo(true)}
-            className="watch-btn relative z-20 mt-8 sm:mt-12 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#8e69ce] text-white text-sm sm:text-base font-medium rounded-full flex items-center gap-2 sm:gap-3 shadow-md hover:bg-[#a07cf8] transition"
+            className="watch-btn relative z-20 mt-8 sm:mt-12 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#8e69ce] text-white text-sm sm:text-base font-medium rounded-full flex items-center gap-2 sm:gap-3 shadow-md hover:bg-[#a07cf8] transition cursor-pointer"
           >
             <FaPlay className="text-xs sm:text-sm" />
             Watch Intro
