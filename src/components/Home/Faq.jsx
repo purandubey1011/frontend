@@ -6,9 +6,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqData = [
   {
-    question: "What is Unfyer and how does it work?",
+    question: "What is Unyfer and how does it work?",
     answer:
-      "Unfyer is a platform that allows creators to connect, earn, and grow by leveraging their influence through chat, call, and content creation.",
+      "Unyfer is a platform that allows creators to connect, earn, and grow by leveraging their influence through chat, call, and content creation.",
   },
   {
     question: "How do I get started as a creator?",
@@ -18,7 +18,7 @@ const faqData = [
   {
     question: "Is there any cost to join the platform?",
     answer:
-      "No, joining Unfyer is completely free for creators. You start earning from your first engagement!",
+      "No, joining Unyfer is completely free for creators. You start earning from your first engagement!",
   },
 ];
 

@@ -48,7 +48,7 @@ const Hero = () => {
 
         {/* Subtitle */}
         <p className="hero-subtitle text-gray-600 mt-3 sm:mt-4 text-xs sm:text-lg leading-relaxed sm:leading-3.5">
-          Unfyer lets premium creators monetize fan love via secure calls and chats — no{" "}
+          Unyfer lets premium creators monetize fan love via secure calls and chats — no{" "}
           <span className="hidden sm:block">
             <br />
           </span>

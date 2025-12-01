@@ -91,7 +91,7 @@ const Howwehelp = () => {
         </div>
         <img
           ref={section2Image}
-          src="https://ik.imagekit.io/b9tt0xvd7/unfyer/bg2.jpg?updatedAt=1754546036972"
+          src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER01_M45Q6xrN5.jpeg"
           alt="Talk to real fans"
           className="rounded-[1.2vw] w-[70vw] md:w-[23vw] h-[60vh] bg-cover"
         />

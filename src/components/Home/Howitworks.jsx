@@ -7,18 +7,18 @@ gsap.registerPlugin(ScrollTrigger);
 const Howitworks = () => {
   const sectionRef = useRef(null);
 
-  useEffect(() => {
+useEffect(() => {
   const el = sectionRef.current;
 
   gsap.fromTo(
     el.querySelectorAll(".animate-item"),
-    { opacity: 0, y: 50 },
+    { opacity: 0, y: 40 },
     {
       opacity: 1,
       y: 0,
-      duration: 1.2, // smooth and slower
-      stagger: 0.3,  // more gap between animations
-      ease: "power3.out", // softer movement
+      duration: 0.6, // faster
+      stagger: 0.15, // quicker sequence
+      ease: "power2.out", // smooth but snappy
       scrollTrigger: {
         trigger: el,
         start: "top 80%",
@@ -29,6 +29,7 @@ const Howitworks = () => {
 }, []);
 
 
+
   return (
     <div
       ref={sectionRef}
@@ -37,9 +38,9 @@ const Howitworks = () => {
       {/* Image Section */}
       <div className="w-[60vw] sm:w-[30vw] h-[50vh] animate-item">
         <img
-          src="https://ik.imagekit.io/b9tt0xvd7/unfyer/works-img.jpg?updatedAt=1754547117696"
+          src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER_HOWITWORKS_DeI-y14lu.jpeg"
           alt="How It Works"
-          className="rounded-[24px] w-full h-full object-cover"
+          className="rounded-[24px] w-full h-full object-cover object-[center_22%]"
         />
       </div>
 

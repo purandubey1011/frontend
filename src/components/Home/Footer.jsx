@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Left: Brand Name */}
         <div className="text-xl font-bold text-[#d946ef] tracking-wide">
-          UNFYER
+          UNYFER
         </div>
 
         {/* Right: Social + Credits */}

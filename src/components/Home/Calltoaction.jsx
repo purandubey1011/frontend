@@ -46,13 +46,13 @@ const Calltoaction = () => {
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4"
           >
             Unleash Your Creative <br className="hidden sm:block" /> Power on
-            Unfyer
+            Unyfer
           </h1>
           <p
             ref={(el) => (textRef.current[1] = el)}
             className="text-sm sm:text-base max-w-2xl mx-auto mb-6 text-[#f7cfe1] font-medium"
           >
-            Whether you're a rising creator or a growing business — Unfyer is
+            Whether you're a rising creator or a growing business — Unyfer is
             where meaningful collaborations begin.
           </p>
           <button
