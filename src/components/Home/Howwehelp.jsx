@@ -93,7 +93,7 @@ const Howwehelp = () => {
           ref={section2Image}
           src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER01_M45Q6xrN5.jpeg"
           alt="Talk to real fans"
-          className="rounded-[1.2vw] w-[70vw] md:w-[23vw] h-[60vh] bg-cover"
+          className="rounded-[1.2vw] w-[90vw] md:w-[26vw] max-w-[360px] h-[60vh] "
         />
       </div>
     </div>

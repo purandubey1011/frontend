@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import ApplyPopup from "./ApplyPopup";
+import HeroVideo from "../utils/herovideo";
 
 const Hero = () => {
   const componentRef = useRef(null);
@@ -14,7 +15,7 @@ const Hero = () => {
       tl.from(".hero-logo", { y: -20, opacity: 0, duration: 0.5 })
         .from(".hero-heading-line", { y: 30, opacity: 0, stagger: 0.1, duration: 0.5 }, "-=0.3")
         .from(".hero-subtitle", { y: 15, opacity: 0, duration: 0.4 }, "-=0.38")
-        .from(".hero-image", { scale: .9, opacity: 0, duration: 0.8 }, "-=0.4")
+        .from(".hero-image", { scale: 0.9, opacity: 0, duration: 0.8 }, "-=0.4")
         .from(buttonRef.current, { opacity: 0, scale: 1, duration: 0.4 }, "-=0.5");
     }, componentRef);
 
@@ -61,7 +62,7 @@ const Hero = () => {
             onClick={() => setPopupOpen(true)}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 sm:px-6 rounded-full text-xs sm:text-base transition duration-300"
           >
-            Apply for Access
+            Sign up
           </button>
           <p className="text-gray-400 text-[10px] sm:text-xs mt-2">
             Only for creators with 50,000+ followers
@@ -69,14 +70,9 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Hero Image */}
-      <div className="hero-image mt-8 sm:mt-12 w-full max-w-[90vw] h-[40vh] sm:h-[80vh] bg-cover px-2 sm:px-4 overflow-hidden rounded-lg sm:rounded-xl brightness-75">
-        <img
-          src="https://ik.imagekit.io/b9tt0xvd7/unfyer/herobg.jpg?updatedAt=1754540692859"
-          alt="Hero"
-          className="w-full h-full object-cover rounded-lg sm:rounded-xl"
-        />
-      </div>
+      {/* Hero Video (replaces the previous image) */}
+      <HeroVideo />
+
 
       {/* Popup Render */}
       {popupOpen && <ApplyPopup onClose={() => setPopupOpen(false)} />}

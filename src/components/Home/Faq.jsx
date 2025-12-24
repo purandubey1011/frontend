@@ -6,21 +6,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqData = [
   {
-    question: "What is Unyfer and how does it work?",
+    question: "What exactly does Unyfer help creators do?",
     answer:
-      "Unyfer is a platform that allows creators to connect, earn, and grow by leveraging their influence through chat, call, and content creation.",
+      "Unyfer gives creators direct access to brand opportunities, expert guidance, collaboration requests, and growth insights — all in one place. No waiting, no guesswork, no middlemen. You get clarity on what’s working, what brands want, and how to grow faster.",
   },
   {
-    question: "How do I get started as a creator?",
+    question: "How soon will I start seeing opportunities after signing up?",
     answer:
-      "Simply apply with your social links, get verified, and start earning by chatting and calling your followers.",
+      "Most creators start receiving relevant brand or expert connections within a few days, depending on their niche and category. Unyfer prioritizes quality over quantity, so every connection you receive is filtered, relevant, and worth your time.",
   },
   {
-    question: "Is there any cost to join the platform?",
+    question: "Do I have to pay to use Unyfer?",
     answer:
-      "No, joining Unyfer is completely free for creators. You start earning from your first engagement!",
+      "No. Signing up is free, and you can explore opportunities at no cost. We only offer optional premium features for creators who want deeper insights, advanced tools, or priority matchmaking — but they are not required to start.",
+  },
+  {
+    question: "Is my data and profile safe on Unyfer?",
+    answer:
+      "Yes. Your analytics, contact details, and personal information are fully secure. Brands and experts only see what you intentionally share. We do not sell, misuse, or expose creator data — your privacy is our priority.",
+  },
+  {
+    question: "Will Unyfer work for my specific niche?",
+    answer:
+      "Absolutely. Unyfer is built for creators across all niches — beauty, fashion, fitness, gaming, tech, travel, education, lifestyle, and more. Our system matches you based on your niche, audience type, and content style, ensuring you get relevant opportunities, not random ones.",
   },
 ];
+
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(null);

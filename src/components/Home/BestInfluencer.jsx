@@ -95,7 +95,7 @@ const BestInfluencer = () => {
             {/* CENTER IMAGE */}
             <div className="center-img rounded-lg sm:rounded-[1.5vw] overflow-hidden shadow-lg w-[60vw] sm:w-[24vw] h-[40vh] sm:h-[58vh]">
               <img
-                src="https://ik.imagekit.io/b9tt0xvd7/unfyer/best-influ-bg.jpg?updatedAt=1754542771454"
+                src="https://ik.imagekit.io/b9tt0xvd7/unfyer/bestinfluencer-bg.jpeg"
                 alt="Best Influencer"
                 className="w-full h-full object-cover"
               />
@@ -145,27 +145,29 @@ const BestInfluencer = () => {
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[999]"
           onClick={() => setOpenVideo(false)}
         >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative h-full rounded-xl overflow-hidden bg-black shadow-lg"
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setOpenVideo(false)}
-              className="absolute top-3 right-3 z-50 bg-white text-black p-1 rounded-full shadow"
-            >
-              <IoClose size={22} />
-            </button>
+        <div
+  onClick={(e) => e.stopPropagation()}
+  className="relative w-full h-full flex items-center justify-center p-4 bg-black rounded-xl overflow-hidden shadow-lg"
+>
+  {/* Close Button */}
+  <button
+    onClick={() => setOpenVideo(false)}
+    className="absolute top-3 right-3 z-50 bg-white text-black p-1 rounded-full shadow"
+  >
+    <IoClose size={22} />
+  </button>
 
-            <video
-              controls
-              autoPlay
-              className="rounded-xl max-h-[90vh] max-w-[90vw] object-contain"
-              src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/unyfer-whyweare.mp4"
-              controlsList="nodownload noplaybackrate "
-              disablePictureInPicture
-            />
-          </div>
+  <video
+    controls
+    autoPlay
+    playsInline
+    className="max-w-[100vw] max-h-[100vh] w-auto h-auto object-contain rounded-xl"
+    src="https://ik.imagekit.io/b9tt0xvd7/unfyer/unyfer-hero-video.mp4"
+    controlsList="nodownload noplaybackrate"
+    disablePictureInPicture
+  />
+</div>
+
         </div>
       )}
     </>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ApplyPopup = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ const ApplyPopup = ({ onClose }) => {
     isCreator: "",
   });
 
+  const [loading, setLoading] = useState(false);
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -21,17 +24,86 @@ const ApplyPopup = ({ onClose }) => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "radio" ? value : value,
+      [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  // 🔥 VALIDATION FUNCTION
+  const validateForm = () => {
+    const { username, email, phone, followers, isCreator } = formData;
+
+    // username
+    if (!username.trim()) {
+      toast.error("Username is required!");
+      return false;
+    }
+
+    // email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) {
+      toast.error("Please enter a valid email!");
+      return false;
+    }
+
+    // phone number → must be exactly 10 digits
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Phone number must be 10 digits!");
+      return false;
+    }
+
+    // followers → must be number ≥ 0
+    if (!followers || isNaN(followers) || Number(followers) < 0) {
+      toast.error("Followers count must be a valid number!");
+      return false;
+    }
+
+    // creator selection
+    if (!isCreator) {
+      toast.error("Please select if you are a creator!");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Thank you, ${formData.username}! We received your application.`);
-    onClose();
+
+    // 🔥 Run validation first
+    if (!validateForm()) return;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("https://unyfer-backend.onrender.com/api/v1/form/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || "Something went wrong!");
+        setLoading(false);
+        return;
+      }
+
+      toast.success("Application submitted successfully!");
+      setLoading(false);
+      onClose();
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Server error, try again later!");
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,11 +112,9 @@ const ApplyPopup = ({ onClose }) => {
         ref={popupRef}
         className="bg-white rounded-lg p-6 max-w-md w-full mx-4 relative shadow-lg"
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl font-bold"
-          aria-label="Close form"
         >
           &times;
         </button>
@@ -54,70 +124,53 @@ const ApplyPopup = ({ onClose }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Username */}
           <div>
-            <label htmlFor="username" className="block text-gray-700 font-semibold mb-1">
-              Username
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Username</label>
             <input
-              id="username"
               name="username"
-              type="text"
               value={formData.username}
               onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
-              Email
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Email</label>
             <input
-              id="email"
               name="email"
               type="email"
               value={formData.email}
               onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
           </div>
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-gray-700 font-semibold mb-1">
-              Phone
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Phone</label>
             <input
-              id="phone"
               name="phone"
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
           </div>
 
           {/* Followers */}
           <div>
-            <label htmlFor="followers" className="block text-gray-700 font-semibold mb-1">
-              Followers Count
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Followers Count</label>
             <input
-              id="followers"
               name="followers"
               type="number"
               min="0"
               value={formData.followers}
               onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              className="w-full border border-gray-300 rounded px-3 py-2"
             />
           </div>
 
-          {/* Are you a Creator? */}
+          {/* Creator */}
           <div>
             <label className="block text-gray-700 font-semibold mb-1">
               Are you a Creator?
@@ -130,10 +183,10 @@ const ApplyPopup = ({ onClose }) => {
                   value="Yes"
                   checked={formData.isCreator === "Yes"}
                   onChange={handleChange}
-                  required
                 />
                 Yes
               </label>
+
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
@@ -141,19 +194,19 @@ const ApplyPopup = ({ onClose }) => {
                   value="No"
                   checked={formData.isCreator === "No"}
                   onChange={handleChange}
-                  required
                 />
                 No
               </label>
             </div>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 rounded-full w-full transition duration-300"
+            disabled={loading}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 rounded-full w-full transition"
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>

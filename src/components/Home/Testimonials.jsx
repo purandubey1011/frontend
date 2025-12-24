@@ -8,57 +8,46 @@ const Testimonials = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const cardRef = useRef(null);
-  const imageRef = useRef(null);
   const textRef = useRef(null);
   const arrowsRef = useRef(null);
   const dotsRef = useRef(null);
 
-  // ⭐ Testimonials Data
   const testimonials = [
     {
-      video:
-        "https://images.unsplash.com/photo-1716703742154-8a90c9563eed?q=80&w=1170&auto=format&fit=crop",
       review:
         "UNYFER completely changed the way I work with brands. Their creator strategies helped me grow my audience and close premium deals.",
-      name: "Adam Smith",
+      name: "Arjun Malhotra",
       role: "Social Media Influencer",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      avatar: "https://thumb.ac-illust.com/11/117f0a7d2b5c41239ad2456baf5c3eac_t.jpeg",
     },
     {
-      video:
-        "https://plus.unsplash.com/premium_photo-1706281895733-b685a6435d27?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       review:
         "Being part of UNYFER helped me streamline content planning and understand what brands really look for in a creator.",
-      name: "Sophia Williams",
+      name: "Ananya Deshmukh",
       role: "Fashion Creator",
-      avatar: "https://randomuser.me/api/portraits/women/45.jpg",
+      avatar: "https://thumb.ac-illust.com/11/117f0a7d2b5c41239ad2456baf5c3eac_t.jpeg",
     },
     {
-      video:
-        "https://images.unsplash.com/photo-1600074169098-16a54d791d0d?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       review:
         "The best decision ever! Their guidance helped me grow from 10k to 100k followers with real engagement strategies.",
-      name: "Michael Lee",
+      name: "Rohan Khanna",
       role: "Tech Content Creator",
-      avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+      avatar: "https://thumb.ac-illust.com/11/117f0a7d2b5c41239ad2456baf5c3eac_t.jpeg",
     },
   ];
 
   const [index, setIndex] = useState(0);
 
-  // ⭐ NEXT HANDLER
   const nextSlide = () => {
     setIndex((prev) => (prev + 1) % testimonials.length);
   };
 
-  // ⭐ PREVIOUS HANDLER
   const prevSlide = () => {
     setIndex((prev) =>
       prev === 0 ? testimonials.length - 1 : prev - 1
     );
   };
 
-  // ⭐ Scroll Animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -78,38 +67,18 @@ const Testimonials = () => {
         .from(
           cardRef.current,
           {
-            y: 50,
+            y: 40,
             opacity: 0,
             duration: 0.7,
             ease: "power3.out",
           },
-          "-=0.2"
-        )
-        .from(
-          imageRef.current,
-          {
-            x: -50,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power3.out",
-          },
-          "-=0.4"
-        )
-        .from(
-          textRef.current,
-          {
-            x: 50,
-            opacity: 0,
-            duration: 0.6,
-            ease: "power3.out",
-          },
-          "-=0.5"
+          "-=0.3"
         )
         .from(
           arrowsRef.current.children,
           {
             opacity: 0,
-            y: 20,
+            y: 15,
             stagger: 0.2,
             duration: 0.4,
           },
@@ -130,10 +99,9 @@ const Testimonials = () => {
     return () => ctx.revert();
   }, []);
 
-  // ⭐ Animate on Next / Prev
   useEffect(() => {
     gsap.fromTo(
-      [imageRef.current, textRef.current],
+      textRef.current,
       { opacity: 0, y: 20 },
       {
         opacity: 1,
@@ -144,27 +112,25 @@ const Testimonials = () => {
     );
   }, [index]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const t = testimonials[index];
-
-  // ⭐ Auto Slide (every 3 sec)
-useEffect(() => {
-  const interval = setInterval(() => {
-    setIndex((prev) => (prev + 1) % testimonials.length);
-  }, 3000);
-
-  return () => clearInterval(interval);
-}, []);
-
 
   return (
     <div
       ref={sectionRef}
-      className="bg-gradient-to-r from-[#A15CFF] to-[#A15CFF]/80 rounded-3xl px-4 md:px-12 py-12 md:py-10 text-white max-w-[90vw] mx-auto relative"
+      className="bg-gradient-to-r from-[#A15CFF] to-[#A15CFF]/80 rounded-3xl px-6 md:px-12 py-16 text-white max-w-[90vw] mx-auto"
     >
-      {/* Title */}
+      {/* Heading */}
       <h2
         ref={headingRef}
-        className="text-2xl md:text-4xl font-semibold text-center mb-8 md:mb-12"
+        className="text-3xl md:text-4xl font-semibold text-center mb-12"
       >
         Creator{" "}
         <span className="border-white border-2 px-2 rounded-md font-bold">
@@ -172,57 +138,28 @@ useEffect(() => {
         </span>
       </h2>
 
-      {/* Card */}
+      {/* Center Content Only */}
       <div
         ref={cardRef}
-        className="relative flex flex-col md:flex-row items-center justify-center bg-white rounded-xl overflow-hidden shadow-md max-w-5xl mx-auto"
+        className="bg-white text-center rounded-xl shadow-md max-w-2xl mx-auto px-8 py-10"
       >
-        {/* Left */}
-        <div
-          ref={imageRef}
-          className="relative w-full md:w-1/2 h-[220px] sm:h-[250px] md:h-[350px]"
-        >
-          <img
-            src={t.video}
-            alt="Thumbnail"
-            className="w-full h-full object-cover transition-all"
-          />
-
-          {/* <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[50px] h-[50px] md:w-[70px] md:h-[70px] rounded-full bg-white shadow-lg flex items-center justify-center cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 md:h-6 md:w-6 text-[#A15CFF]"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </div> */}
-        </div>
-
-        {/* Right */}
-        <div
-          ref={textRef}
-          className="w-full md:w-1/2 px-4 sm:px-6 md:px-10 py-6 md:py-8 text-center md:text-left"
-        >
-          <h4 className="text-[#A15CFF] text-base md:text-lg font-semibold mb-3">
+        <div ref={textRef}>
+          <h4 className="text-[#A15CFF] text-lg font-semibold mb-4">
             UNYFER
           </h4>
 
-          <p className="text-gray-700 mb-4 md:mb-6 text-sm leading-relaxed">
+          <p className="text-gray-700 text-base mb-6 leading-relaxed">
             "{t.review}"
           </p>
 
-          <div className="flex flex-col sm:flex-row md:flex-row items-center gap-3 sm:gap-4">
+          <div className="flex flex-col items-center gap-3">
             <img
               src={t.avatar}
               alt={t.name}
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-14 h-14 rounded-full object-cover"
             />
-            <div className="text-center sm:text-left">
-              <p className="text-[#1A1A1A] font-bold text-sm">{t.name}</p>
+            <div>
+              <p className="text-[#1A1A1A] font-bold">{t.name}</p>
               <p className="text-gray-500 text-sm">{t.role}</p>
             </div>
           </div>
@@ -232,19 +169,22 @@ useEffect(() => {
       {/* Arrows + Dots */}
       <div
         ref={arrowsRef}
-        className="flex items-center justify-between mt-8 max-w-[200px] mx-auto w-full"
+        className="flex items-center justify-between mt-10 max-w-[200px] mx-auto w-full"
       >
-        {/* Left */}
         <button
           onClick={prevSlide}
-          className="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full shadow-md flex items-center justify-center"
+          className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center"
         >
           <svg className="w-5 h-5 text-[#A15CFF]" fill="currentColor">
-            <path d="M12 4L4 12l8 8" strokeWidth="2" stroke="currentColor" fill="none" />
+            <path
+              d="M12 4L4 12l8 8"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+            />
           </svg>
         </button>
 
-        {/* Dots */}
         <div ref={dotsRef} className="flex space-x-2">
           {testimonials.map((_, i) => (
             <div
@@ -256,13 +196,17 @@ useEffect(() => {
           ))}
         </div>
 
-        {/* Right */}
         <button
           onClick={nextSlide}
-          className="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full shadow-md flex items-center justify-center"
+          className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center"
         >
           <svg className="w-5 h-5 text-[#A15CFF]" fill="currentColor">
-            <path d="M8 4l8 8-8 8" strokeWidth="2" stroke="currentColor" fill="none" />
+            <path
+              d="M8 4l8 8-8 8"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+            />
           </svg>
         </button>
       </div>
