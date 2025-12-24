@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import ApplyPopup from "./ApplyPopup";
-import HeroVideo from "../utils/herovideo";
+import HeroVideo from "../utils/Herovideo.jsx";
 
 const Hero = () => {
   const componentRef = useRef(null);
