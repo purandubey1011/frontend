@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import {
   FiMapPin,
   FiClock,
@@ -7,17 +7,64 @@ import {
   FiInstagram,
   FiLinkedin,
 } from "react-icons/fi";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FindUs = () => {
+  const componentRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: componentRef.current,
+          start: "top 60%",   // section viewport me aaye
+          end: "bottom 60%",
+          toggleActions: "play none none none",
+          once: true,        // animation sirf ek baar
+        },
+        defaults: { ease: "power2.out", duration: 0.6 },
+      });
+
+      tl.from(".findus-title", { y: 20, opacity: 0 })
+        .from(".findus-desc", { y: 15, opacity: 0 }, "-=0.3")
+        .from(
+          ".findus-left > div",
+          {
+            y: 20,
+            opacity: 0,
+            stagger: 0.15,
+          },
+          "-=0.1"
+        )
+        .from(
+          ".findus-right > div",
+          {
+            y: 20,
+            opacity: 0,
+            stagger: 0.15,
+          },
+          "-=0.4"
+        );
+    }, componentRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-[#1b0f2e] text-white w-full py-8 px-4 sm:px-0 ">
+    <section
+      ref={componentRef}
+      className="bg-[#1b0f2e] text-white w-full py-8 px-4 sm:px-0"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="mb-14 flex flex-col items-center text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h2 className="findus-title text-3xl sm:text-4xl font-bold mb-4">
             Find Us
           </h2>
-          <p className="text-gray-300 max-w-xl">
+          <p className="findus-desc text-gray-300 max-w-xl">
             Reach out to Unyfer for partnerships, support, or general
             enquiries. We’re always happy to connect.
           </p>
@@ -26,8 +73,7 @@ const FindUs = () => {
         {/* Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Left */}
-          <div className="space-y-8">
-            {/* Address */}
+          <div className="findus-left space-y-8">
             <div className="flex gap-4">
               <FiMapPin className="text-purple-400 text-xl mt-1" />
               <div>
@@ -50,7 +96,6 @@ const FindUs = () => {
 
             <hr className="border-white/20" />
 
-            {/* Email */}
             <div className="flex gap-4">
               <FiMail className="text-purple-400 text-xl mt-1" />
               <div>
@@ -61,15 +106,12 @@ const FindUs = () => {
                 >
                   help@unyfer.com
                 </a>
-                <p className="text-xs text-gray-400 mt-1">
-                  (click-to-mail)
-                </p>
+                <p className="text-xs text-gray-400 mt-1">(click-to-mail)</p>
               </div>
             </div>
 
             <hr className="border-white/20" />
 
-            {/* Social */}
             <div>
               <h4 className="font-semibold mb-3">Follow Us</h4>
               <div className="flex gap-4">
@@ -95,8 +137,7 @@ const FindUs = () => {
           </div>
 
           {/* Right */}
-          <div className="space-y-8">
-            {/* Hours */}
+          <div className="findus-right space-y-8">
             <div className="flex gap-4">
               <FiClock className="text-purple-400 text-xl mt-1" />
               <div>
@@ -111,7 +152,6 @@ const FindUs = () => {
 
             <hr className="border-white/20" />
 
-            {/* Phone */}
             <div className="flex gap-4">
               <FiPhone className="text-purple-400 text-xl mt-1" />
               <div>
@@ -122,9 +162,7 @@ const FindUs = () => {
                 >
                   +91 99999 99999
                 </a>
-                <p className="text-xs text-gray-400 mt-1">
-                  (click-to-call)
-                </p>
+                <p className="text-xs text-gray-400 mt-1">(click-to-call)</p>
               </div>
             </div>
 
