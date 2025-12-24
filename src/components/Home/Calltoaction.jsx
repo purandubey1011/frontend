@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Calltoaction = () => {
   const sectionRef = useRef(null);
   const textRef = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,6 +59,14 @@ const Calltoaction = () => {
           </p>
           <button
             ref={(el) => (textRef.current[2] = el)}
+            onClick={() => {
+              navigate("/", { replace: false });
+              setTimeout(() => {
+                document
+                  .getElementById("hero")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            }}
             className="bg-white text-[#7e3af2] px-6 py-3 rounded-full text-sm sm:text-base font-semibold hover:scale-105 transition duration-300 shadow-md"
           >
             Get Started

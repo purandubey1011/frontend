@@ -1,17 +1,5 @@
 
-    //   const res = await fetch(
-    //     "https://api.unyfer.com/contact", // 🔁 replace with real backend URL
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(formData),
-    //     }
-    //   );
-
-    //   if (!res.ok) throw new Error("Failed");
-
+ 
 
 
     import React, { useState, useRef, useLayoutEffect } from "react";
@@ -61,31 +49,51 @@ const ContactUsForm = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error("Please fill all required fields");
+  // 🔥 Basic validation
+  if (!formData.name || !formData.email || !formData.message) {
+    toast.error("Please fill all required fields");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const res = await fetch("https://unyfer-backend.onrender.com/api/v1/form/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.error || "Something went wrong!");
+      setLoading(false);
       return;
     }
 
-    try {
-      setLoading(true);
-      toast.success("Form submitted successfully");
+    toast.success("Form submitted successfully!");
 
-      setFormData({
-        name: "",
-        mobile: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setFormData({
+      name: "",
+      mobile: "",
+      email: "",
+      subject: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    toast.error("Server error, please try again later!");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section

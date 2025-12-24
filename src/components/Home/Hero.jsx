@@ -25,7 +25,7 @@ const Hero = () => {
   return (
     <div
       ref={componentRef}
-      className="bg-white flex flex-col items-center justify-center px-4 py-0"
+      className="bg-white flex flex-col items-center justify-center px-4 py-0" id="hero"
     >
       {/* Logo */}
       <div className="w-full max-w-[90vw] text-left">
@@ -39,7 +39,7 @@ const Hero = () => {
       </div>
 
       {/* Heading & Content */}
-      <div className="text-center mt-6 sm:mt-8 max-w-[90vw] overflow-hidden">
+      <div className="text-center mt-6 sm:mt-8 max-w-[90vw] overflow-hidden" >
         <h1 className="text-2xl sm:text-6xl font-bold leading-snug sm:leading-tight">
           <span className="block hero-heading-line">Turn Your Audience Into Income</span>
           <span className="block hero-heading-line">
@@ -57,14 +57,14 @@ const Hero = () => {
         </p>
 
         {/* CTA Button */}
-        <div className="mt-5 sm:mt-6" ref={buttonRef}>
+        <div className="mt-5 sm:mt-6"  ref={buttonRef}>
           <button
             onClick={() => setPopupOpen(true)}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 sm:px-6 rounded-full text-xs sm:text-base transition duration-300"
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 sm:py-2.5 px-12 sm:px-8 rounded-full text-xs sm:text-base transition duration-300"
           >
             Sign up
           </button>
-          <p className="text-gray-400 text-[10px] sm:text-xs mt-2">
+          <p className="text-gray-400 text-[10px] sm:text-sm mt-2">
             Only for creators with 50,000+ followers
           </p>
         </div>

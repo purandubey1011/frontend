@@ -12,8 +12,18 @@ const Howwehelp = () => {
 
   useEffect(() => {
     const sections = [
-      { image: section1Image.current, text: section1Text.current, fromImgX: -100, fromTextX: 100 },
-      { image: section2Image.current, text: section2Text.current, fromImgX: 100, fromTextX: -100 },
+      {
+        image: section1Image.current,
+        text: section1Text.current,
+        fromImgX: -100,
+        fromTextX: 100,
+      },
+      {
+        image: section2Image.current,
+        text: section2Text.current,
+        fromImgX: 100,
+        fromTextX: -100,
+      },
     ];
 
     sections.forEach(({ image, text, fromImgX, fromTextX }) => {
@@ -51,18 +61,32 @@ const Howwehelp = () => {
 
   return (
     <div className="bg-[#fff6fa] py-16 flex flex-col items-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">How can we help you?</h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+        How can we help you?
+      </h2>
 
       {/* Section 1 */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-24 mb-20 w-[90vw]">
-        <img
+        <div
           ref={section1Image}
-          src="https://ik.imagekit.io/b9tt0xvd7/unfyer/bg1.jpg?updatedAt=1754546040046"
-          alt="Tired of Begging Brands"
-          className="rounded-[1.2vw] w-[90vw] md:w-[26vw] max-w-[360px] h-[60vh]"
-        />
+          className="
+    w-[90vw] md:w-[26vw] max-w-[360px]
+    md:h-[60vh] h-[45vh]
+    rounded-[1.2vw]
+    overflow-hidden
+    flex-shrink-0
+  "
+        >
+          <img
+            src="https://ik.imagekit.io/b9tt0xvd7/unfyer/bg1.jpg?updatedAt=1754546040046"
+            alt="Tired of Begging Brands"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div ref={section1Text} className="text-center md:text-left max-w-md">
-          <h3 className="text-2xl font-semibold mb-4">Tired of Begging Brands?</h3>
+          <h3 className="text-2xl font-semibold mb-4">
+            Tired of Begging Brands?
+          </h3>
           <ul className="text-gray-700 mb-6 space-y-1">
             <li>- Brand deals are unpredictable</li>
             <li>- You don’t own your income</li>
@@ -89,12 +113,22 @@ const Howwehelp = () => {
             Let’s try With Us
           </button>
         </div>
-        <img
+        <div
           ref={section2Image}
-          src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER01_M45Q6xrN5.jpeg"
-          alt="Talk to real fans"
-          className="rounded-[1.2vw] w-[90vw] md:w-[26vw] max-w-[360px] h-[60vh] "
-        />
+          className="
+    w-[90vw] md:w-[26vw] max-w-[360px]
+    md:h-[60vh] h-[45vh]
+    rounded-[1.2vw]
+    overflow-hidden
+    flex-shrink-0
+  "
+        >
+          <img
+            src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/UNYFER01_M45Q6xrN5.jpeg"
+            alt="Talk to real fans"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );

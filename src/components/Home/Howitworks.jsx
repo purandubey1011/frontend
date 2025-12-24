@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Howitworks = () => {
   const sectionRef = useRef(null);
+  const navigate = useNavigate();
 
 useEffect(() => {
   const el = sectionRef.current;
@@ -75,6 +77,34 @@ useEffect(() => {
               Start chatting, calling, earning
             </p>
           </div>
+          {/* Start Now Button */}
+<div className="mt-8 ml-8 animate-item">
+  <button
+        onClick={() => {
+              navigate("/", { replace: false });
+              setTimeout(() => {
+                document
+                  .getElementById("hero")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }, 100);
+            }}
+    className="
+      px-8 py-3
+      rounded-full
+      bg-[#7e3af2]
+      text-white
+      text-sm sm:text-base
+      font-semibold
+      hover:scale-105
+      hover:bg-[#6b2fe0]
+      transition
+      duration-300
+      shadow-md
+    "
+  >
+    Get Start
+  </button>
+</div>
         </div>
       </div>
     </div>
