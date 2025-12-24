@@ -79,12 +79,10 @@ const FindUs = () => {
               <div>
                 <h4 className="font-semibold mb-1">Address</h4>
                 <p className="text-gray-300">
-                  12609 Chinguacousy Rd,
-                  <br />
-                  Caledon, ON L7C 3H2, Canada
+                 toronto, canada
                 </p>
                 <a
-                  href="https://www.google.com/maps"
+                  href="https://maps.app.goo.gl/CvrzAPjSqiiUqGzp8"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-purple-400 underline text-sm mt-1 inline-block"
@@ -104,7 +102,7 @@ const FindUs = () => {
                   href="mailto:help@unyfer.com"
                   className="text-gray-300 hover:text-purple-400 transition"
                 >
-                  help@unyfer.com
+                  contact@unyfer.com
                 </a>
                 <p className="text-xs text-gray-400 mt-1">(click-to-mail)</p>
               </div>
@@ -152,7 +150,7 @@ const FindUs = () => {
 
             <hr className="border-white/20" />
 
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <FiPhone className="text-purple-400 text-xl mt-1" />
               <div>
                 <h4 className="font-semibold mb-1">Contact Details</h4>
@@ -164,9 +162,9 @@ const FindUs = () => {
                 </a>
                 <p className="text-xs text-gray-400 mt-1">(click-to-call)</p>
               </div>
-            </div>
+            </div> */}
 
-            <hr className="border-white/20" />
+            {/* <hr className="border-white/20" /> */}
           </div>
         </div>
       </div>
