@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { submitApplyForm } from "../services/adminApi";
+
+// ✅ axios api import
 
 const ApplyPopup = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -15,6 +18,7 @@ const ApplyPopup = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
   const popupRef = useRef(null);
 
+  // GSAP animation (unchanged)
   useEffect(() => {
     gsap.fromTo(
       popupRef.current,
@@ -31,37 +35,32 @@ const ApplyPopup = ({ onClose }) => {
     }));
   };
 
-  // 🔥 VALIDATION FUNCTION
+  // 🔥 VALIDATION (unchanged)
   const validateForm = () => {
     const { username, email, phone, followers, isCreator } = formData;
 
-    // username
     if (!username.trim()) {
       toast.error("Username is required!");
       return false;
     }
 
-    // email format check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim() || !emailRegex.test(email)) {
       toast.error("Please enter a valid email!");
       return false;
     }
 
-    // phone number → must be exactly 10 digits
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phone)) {
       toast.error("Phone number must be 10 digits!");
       return false;
     }
 
-    // followers → must be number ≥ 0
     if (!followers || isNaN(followers) || Number(followers) < 0) {
       toast.error("Followers count must be a valid number!");
       return false;
     }
 
-    // creator selection
     if (!isCreator) {
       toast.error("Please select if you are a creator!");
       return false;
@@ -70,42 +69,29 @@ const ApplyPopup = ({ onClose }) => {
     return true;
   };
 
+  // ✅ AXIOS BASED SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 🔥 Run validation first
     if (!validateForm()) return;
 
     setLoading(true);
 
     try {
-      const res = await fetch("https://unyfer-backend.onrender.com/api/v1/form/apply", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const { data } = await submitApplyForm(formData);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.error || "Something went wrong!");
-        setLoading(false);
-        return;
-      }
-
-      toast.success("Application submitted successfully!");
-      setLoading(false);
+      toast.success(data.message || "Application submitted successfully!");
       onClose();
-
     } catch (error) {
-      console.error(error);
-      toast.error("Server error, try again later!");
+      toast.error(
+        error.response?.data?.error || "Server error, try again later!"
+      );
+    } finally {
       setLoading(false);
     }
   };
 
+  // 🔥 UI COMPLETELY UNCHANGED
   return (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
       <div
@@ -119,12 +105,16 @@ const ApplyPopup = ({ onClose }) => {
           &times;
         </button>
 
-        <h2 className="text-2xl font-bold mb-4 text-purple-600">Apply for Access</h2>
+        <h2 className="text-2xl font-bold mb-4 text-purple-600">
+          Apply for Access
+        </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Username */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Username</label>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Username
+            </label>
             <input
               name="username"
               value={formData.username}
@@ -135,7 +125,9 @@ const ApplyPopup = ({ onClose }) => {
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Email</label>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Email
+            </label>
             <input
               name="email"
               type="email"
@@ -147,7 +139,9 @@ const ApplyPopup = ({ onClose }) => {
 
           {/* Phone */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Phone</label>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Phone
+            </label>
             <input
               name="phone"
               type="tel"
@@ -159,7 +153,9 @@ const ApplyPopup = ({ onClose }) => {
 
           {/* Followers */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">Followers Count</label>
+            <label className="block text-gray-700 font-semibold mb-1">
+              Followers Count
+            </label>
             <input
               name="followers"
               type="number"

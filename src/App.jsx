@@ -6,6 +6,10 @@ import CSAEPolicy from "./components/CSAEPolicy/CSAEPolicy.jsx";
 import DeleteAccount from "./components/DeleteAccount/DeleteAccount.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
 
+import AdminDashboard from "./components/Admin/AdminDashboard.jsx";
+import AdminLogin from "./components/Admin/AdminLogin.jsx";
+import ProtectedRoute from "./components/Admin/ProtectedRoute.jsx";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,6 +23,17 @@ const App = () => {
         <Route path="/csae-policy" element={<CSAEPolicy />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/contact-us" element={<ContactUs />} />
+
+        {/* Admin */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
       <ToastContainer position="top-right" autoClose={2000} />

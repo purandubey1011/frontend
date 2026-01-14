@@ -5,6 +5,7 @@
     import React, { useState, useRef, useLayoutEffect } from "react";
 import { toast } from "react-toastify";
 import { gsap } from "gsap";
+import { submitContactForm } from "../services/adminApi";
 
 const ContactUsForm = () => {
   const componentRef = useRef(null);
@@ -49,50 +50,35 @@ const ContactUsForm = () => {
     });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // 🔥 Basic validation
-  if (!formData.name || !formData.email || !formData.message) {
-    toast.error("Please fill all required fields");
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const res = await fetch("https://unyfer-backend.onrender.com/api/v1/form/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      toast.error(data.error || "Something went wrong!");
-      setLoading(false);
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Name, Email and Message are required!");
       return;
     }
 
-    toast.success("Form submitted successfully!");
+    setLoading(true);
 
-    setFormData({
-      name: "",
-      mobile: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
-  } catch (error) {
-    console.error(error);
-    toast.error("Server error, please try again later!");
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      const { data } = await submitContactForm(formData);
+      toast.success(data.message || "Form submitted successfully!");
+
+      setFormData({
+        name: "",
+        mobile: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (err) {
+      toast.error(
+        err.response?.data?.error || "Server error, try again later!"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
