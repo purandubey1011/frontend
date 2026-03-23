@@ -73,9 +73,14 @@ const BestInfluencer = () => {
         <div className="flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-10">
           <div className="left-text flex flex-col gap-6 sm:gap-10 text-left text-sm sm:text-lg">
             {leftPoints.map((point) => (
-              <div key={point} className="flex items-start gap-3">
-                <span className="text-purple-500 text-lg sm:text-xl mt-1">✴</span>
-                <p>{point}</p>
+              <div
+                key={point}
+                className="grid grid-cols-[18px_1fr] items-start gap-3 sm:grid-cols-[20px_1fr]"
+              >
+                <span className="pt-1 text-purple-500 text-lg sm:text-xl leading-none">
+                  ✴
+                </span>
+                <p className="leading-snug">{point}</p>
               </div>
             ))}
           </div>
@@ -90,9 +95,14 @@ const BestInfluencer = () => {
 
           <div className="right-text flex flex-col gap-6 sm:gap-10 text-left text-sm sm:text-lg">
             {rightPoints.map((point) => (
-              <div key={point} className="flex items-start gap-3">
-                <span className="text-purple-500 text-lg sm:text-xl mt-1">✴</span>
-                <p>{point}</p>
+              <div
+                key={point}
+                className="grid grid-cols-[18px_1fr] items-start gap-3 sm:grid-cols-[20px_1fr]"
+              >
+                <span className="pt-1 text-purple-500 text-lg sm:text-xl leading-none">
+                  ✴
+                </span>
+                <p className="leading-snug">{point}</p>
               </div>
             ))}
           </div>
