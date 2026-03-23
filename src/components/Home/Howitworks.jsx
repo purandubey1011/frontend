@@ -42,7 +42,7 @@ useEffect(() => {
       className="w-[90vw] mx-auto py-16 flex flex-col md:flex-row items-center justify-center gap-12"
     >
       {/* Image Section */}
-      <div className="w-[60vw] sm:w-[30vw] h-[50vh] animate-item">
+      <div className="w-[80vw] sm:w-[30vw] h-[50vh] animate-item">
         <img
           src="https://ik.imagekit.io/b9tt0xvd7/Falverra/unyfer/HOWITWORKS_UNYFER_BmFXBWDS8.jpeg"
           alt="How It Works"

@@ -75,10 +75,17 @@ const BestInfluencer = () => {
             {leftPoints.map((point) => (
               <div
                 key={point}
-                className="grid grid-cols-[18px_1fr] items-start gap-3 sm:grid-cols-[20px_1fr]"
+                className="grid grid-cols-[20px_1fr] items-center gap-3 sm:grid-cols-[22px_1fr]"
               >
-                <span className="pt-1 text-purple-500 text-lg sm:text-xl leading-none">
-                  ✴
+                <span className="flex h-5 w-5 items-center justify-center text-purple-500 leading-none sm:h-[22px] sm:w-[22px]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z" />
+                  </svg>
                 </span>
                 <p className="leading-snug">{point}</p>
               </div>
@@ -97,10 +104,17 @@ const BestInfluencer = () => {
             {rightPoints.map((point) => (
               <div
                 key={point}
-                className="grid grid-cols-[18px_1fr] items-start gap-3 sm:grid-cols-[20px_1fr]"
+                className="grid grid-cols-[20px_1fr] items-center gap-3 sm:grid-cols-[22px_1fr]"
               >
-                <span className="pt-1 text-purple-500 text-lg sm:text-xl leading-none">
-                  ✴
+                <span className="flex h-5 w-5 items-center justify-center text-purple-500 leading-none sm:h-[22px] sm:w-[22px]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
+                    fill="currentColor"
+                  >
+                    <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z" />
+                  </svg>
                 </span>
                 <p className="leading-snug">{point}</p>
               </div>
