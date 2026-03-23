@@ -2,6 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import ApplyList from "./ApplyList";
 import ContactList from "./ContactList";
+import ZohoCampaign from "./ZohoCampaign";
 
 const AdminDashboard = () => {
   const [tab, setTab] = useState("apply");
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
       <div style={{ flex: 1, padding: "20px" }}>
         {tab === "apply" && <ApplyList />}
         {tab === "contact" && <ContactList />}
+        {tab === "zoho" && <ZohoCampaign />}
       </div>
     </div>
   );

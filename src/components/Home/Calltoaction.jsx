@@ -12,7 +12,6 @@ const Calltoaction = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Text stagger animation only
       gsap.fromTo(
         textRef.current,
         { y: 40, opacity: 0 },
@@ -35,42 +34,45 @@ const Calltoaction = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="w-full px-4 py-12 relative">
+    <div ref={sectionRef} className="relative w-full px-4 py-12">
       <div
-        className="w-full max-w-7xl mx-auto rounded-2xl overflow-hidden bg-cover bg-center flex flex-col items-center justify-center text-center px-6 py-20"
+        className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center overflow-hidden rounded-2xl bg-cover bg-center px-6 py-20 text-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://ik.imagekit.io/b9tt0xvd7/unfyer/imgx.jpg")`,
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,0.34), rgba(0,0,0,0.34)), url("https://ik.imagekit.io/b9tt0xvd7/unfyer/imgx.jpg")',
         }}
       >
         <div className="relative z-10 text-white">
           <h1
             ref={(el) => (textRef.current[0] = el)}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4"
+            className="mb-4 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
           >
-            Unleash Your Creative <br className="hidden sm:block" /> Power on
-            Unyfer
+            Your audience already follows you.
+            <br className="hidden sm:block" />
+            Now let them connect with you.
           </h1>
-          <p
-            ref={(el) => (textRef.current[1] = el)}
-            className="text-sm sm:text-base max-w-2xl mx-auto mb-6 text-[#f7cfe1] font-medium"
-          >
-            Whether you're a rising creator or a growing business — Unyfer is
-            where meaningful collaborations begin.
-          </p>
+            
           <button
             ref={(el) => (textRef.current[2] = el)}
             onClick={() => {
               navigate("/", { replace: false });
               setTimeout(() => {
-                document
-                  .getElementById("hero")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("hero")?.scrollIntoView({
+                  behavior: "smooth",
+                });
               }, 100);
             }}
-            className="bg-white text-[#7e3af2] px-6 py-3 rounded-full text-sm sm:text-base font-semibold hover:scale-105 transition duration-300 shadow-md"
+            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#7e3af2] shadow-md transition duration-300 hover:scale-105 sm:text-base"
           >
-            Get Started
+            Download Unyfer
           </button>
+
+          <p
+            ref={(el) => (textRef.current[3] = el)}
+            className="mt-4 text-sm font-medium text-white/90 sm:text-base"
+          >
+            Available on iOS & Android
+          </p>
         </div>
       </div>
     </div>

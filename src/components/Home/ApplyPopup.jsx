@@ -113,7 +113,7 @@ const ApplyPopup = ({ onClose }) => {
           {/* Username */}
           <div>
             <label className="block text-gray-700 font-semibold mb-1">
-              Username
+              Instagram Username
             </label>
             <input
               name="username"

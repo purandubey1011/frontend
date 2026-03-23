@@ -1,13 +1,17 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const steps = [
+  "Download Application",
+  "Get verified & onboarded",
+  "Start connecting with your audience",
+];
+
 const Howitworks = () => {
   const sectionRef = useRef(null);
-  const navigate = useNavigate();
 
 useEffect(() => {
   const el = sectionRef.current;
@@ -48,63 +52,36 @@ useEffect(() => {
 
       {/* Text & Steps Section */}
       <div className="animate-item">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8">How It Works?</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-3">How It Works?</h2>
+        <p className="text-gray-600 text-base sm:text-lg mb-8">
+          Get started in minutes
+        </p>
 
         <div className="relative ml-4 animate-item">
           {/* Vertical line behind dots */}
           <div className="absolute left-[6px] top-0 h-full w-[2px] bg-pink-300/50"></div>
 
-          {/* Step 1 */}
-          <div className="relative mb-10 pl-8 animate-item">
-            <div className="absolute left-0 top-[6px] w-[14px] h-[14px] rounded-full bg-pink-400 shadow-md"></div>
-            <p className="text-gray-800 font-medium">
-              Apply with your social links
-            </p>
-          </div>
+          {steps.map((step, index) => (
+            <div
+              key={step}
+              className={`relative pl-8 animate-item ${
+                index !== steps.length - 1 ? "mb-10" : ""
+              }`}
+            >
+              <div
+                className={`absolute left-0 top-[6px] h-[14px] w-[14px] rounded-full shadow-md ${
+                  index === steps.length - 1 ? "bg-pink-300 shadow-sm" : "bg-pink-400"
+                }`}
+              ></div>
+              <p className="text-gray-800 font-medium">
+                {index + 1}. {step}
+              </p>
+            </div>
+          ))}
 
-          {/* Step 2 */}
-          <div className="relative mb-10 pl-8 animate-item">
-            <div className="absolute left-0 top-[6px] w-[14px] h-[14px] rounded-full bg-pink-400 shadow-md"></div>
-            <p className="text-gray-800 font-medium">
-              Get verified and onboarded
-            </p>
-          </div>
-
-          {/* Step 3 */}
-          <div className="relative pl-8 opacity-50 animate-item">
-            <div className="absolute left-0 top-[6px] w-[14px] h-[14px] rounded-full bg-pink-300 shadow-sm"></div>
-            <p className="text-gray-800 font-medium">
-              Start chatting, calling, earning
-            </p>
-          </div>
-          {/* Start Now Button */}
-<div className="mt-8 ml-8 animate-item">
-  <button
-        onClick={() => {
-              navigate("/", { replace: false });
-              setTimeout(() => {
-                document
-                  .getElementById("hero")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }, 100);
-            }}
-    className="
-      px-8 py-3
-      rounded-full
-      bg-[#7e3af2]
-      text-white
-      text-sm sm:text-base
-      font-semibold
-      hover:scale-105
-      hover:bg-[#6b2fe0]
-      transition
-      duration-300
-      shadow-md
-    "
-  >
-    Get Start
-  </button>
-</div>
+          <p className="mt-8 ml-8 animate-item text-base sm:text-lg font-semibold text-purple-700">
+            That&apos;s it.
+          </p>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -6,32 +6,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqData = [
   {
-    question: "What exactly does Unyfer help creators do?",
+    question: "What does Unyfer do?",
     answer:
-      "Unyfer gives creators direct access to brand opportunities, expert guidance, collaboration requests, and growth insights — all in one place. No waiting, no guesswork, no middlemen. You get clarity on what’s working, what brands want, and how to grow faster.",
+      "Unyfer allows creators to connect 1:1 with their audience through secure calls and chats. It is a direct, personal way to interact beyond content.",
   },
   {
-    question: "How soon will I start seeing opportunities after signing up?",
+    question: "Do I need brand deals to earn here?",
     answer:
-      "Most creators start receiving relevant brand or expert connections within a few days, depending on their niche and category. Unyfer prioritizes quality over quantity, so every connection you receive is filtered, relevant, and worth your time.",
+      "No. Unyfer is independent of brands. Your audience connects with you directly with no intermediaries involved.",
   },
   {
-    question: "Do I have to pay to use Unyfer?",
+    question: "Who can join Unyfer?",
     answer:
-      "No. Signing up is free, and you can explore opportunities at no cost. We only offer optional premium features for creators who want deeper insights, advanced tools, or priority matchmaking — but they are not required to start.",
+      "Creators with an engaged audience (5,000+ followers) who want to build deeper, more meaningful connections.",
   },
   {
-    question: "Is my data and profile safe on Unyfer?",
+    question: "Is this safe and private?",
     answer:
-      "Yes. Your analytics, contact details, and personal information are fully secure. Brands and experts only see what you intentionally share. We do not sell, misuse, or expose creator data — your privacy is our priority.",
+      "Yes. All interactions happen within a secure system designed to protect both creators and users.",
   },
   {
-    question: "Will Unyfer work for my specific niche?",
+    question: "Why would my audience use this?",
     answer:
-      "Absolutely. Unyfer is built for creators across all niches — beauty, fashion, fitness, gaming, tech, travel, education, lifestyle, and more. Our system matches you based on your niche, audience type, and content style, ensuring you get relevant opportunities, not random ones.",
+      "Because people do not just want to watch anymore. They want to connect, ask, learn, and experience you directly.",
   },
 ];
-
 
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -43,7 +42,6 @@ const Faq = () => {
   };
 
   useEffect(() => {
-    // Heading animation
     gsap.fromTo(
       headingRef.current,
       { opacity: 0, y: 50 },
@@ -58,7 +56,6 @@ const Faq = () => {
       }
     );
 
-    // FAQ cards animation
     gsap.fromTo(
       faqRefs.current,
       { opacity: 0, y: 30 },
@@ -77,28 +74,28 @@ const Faq = () => {
   }, []);
 
   return (
-    <div className="bg-[#f8f4ff] py-24 px-6 md:px-20 text-gray-800">
+    <div className="bg-[#f8f4ff] px-6 py-24 text-gray-800 md:px-20">
       <h2
         ref={headingRef}
-        className="text-3xl md:text-6xl font-medium text-center mb-10 text-black"
+        className="mb-10 text-center text-3xl font-medium text-black md:text-6xl"
       >
         Frequently Asked Questions
       </h2>
 
-      <div className="max-w-2xl mx-auto space-y-6">
+      <div className="mx-auto max-w-2xl space-y-6">
         {faqData.map((item, index) => (
           <div
-            key={index}
+            key={item.question}
             ref={(el) => (faqRefs.current[index] = el)}
-            className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden"
+            className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
           >
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full text-left px-6 py-4 flex justify-between items-center focus:outline-none"
+              className="flex w-full items-center justify-between px-6 py-4 text-left focus:outline-none"
             >
-              <span className="font-medium text-lg">{item.question}</span>
+              <span className="text-lg font-medium">{item.question}</span>
               <svg
-                className={`w-5 h-5 transition-transform duration-200 ${
+                className={`h-5 w-5 transition-transform duration-200 ${
                   openIndex === index ? "rotate-180" : ""
                 }`}
                 fill="none"
@@ -114,11 +111,9 @@ const Faq = () => {
               </svg>
             </button>
             <div
-              className={`transition-all duration-300 ease-in-out ${
-                openIndex === index
-                  ? "max-h-40 opacity-100"
-                  : "max-h-0 opacity-0"
-              } overflow-hidden px-6 pb-2 text-gray-600`}
+              className={`overflow-hidden px-6 pb-2 text-gray-600 transition-all duration-300 ease-in-out ${
+                openIndex === index ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+              }`}
             >
               {item.answer}
             </div>

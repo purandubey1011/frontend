@@ -2,6 +2,7 @@ import Hero from './Hero'
 import BestInfluencer from './BestInfluencer'
 import Howwehelp from './Howwehelp'
 import Howitworks from './Howitworks'
+import WhyUnyferExists from './WhyUnyferExists'
 import Testimonials from './Testimonials'
 import Faq from './Faq'
 import Calltoaction from './Calltoaction'
@@ -14,6 +15,7 @@ const Home = () => {
       <BestInfluencer />
       <Howwehelp />
       <Howitworks />
+      <WhyUnyferExists />
       <Testimonials />
       <Faq />
       <Calltoaction/>

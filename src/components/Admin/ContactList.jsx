@@ -6,6 +6,7 @@ const ContactList = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState("");
 
   // ✅ NEW: toggle test users
   const [showTestUsers, setShowTestUsers] = useState(false);
@@ -26,19 +27,46 @@ const ContactList = () => {
   }, []);
 
   // ✅ filter logic (search + test email filter)
-  const filteredData = data
-    .filter((item) => {
-      // hide test users by default
-      if (!showTestUsers && item.email.toLowerCase().includes("test")) {
-        return false;
-      }
-      return true;
-    })
-    .filter(
-      (item) =>
-        item.name.toLowerCase().includes(filter.toLowerCase()) ||
-        item.email.toLowerCase().includes(filter.toLowerCase())
+ const filteredData = data
+  // 🔹 hide test users
+  .filter((item) => {
+    if (!showTestUsers && item.email?.toLowerCase().includes("test")) {
+      return false;
+    }
+    return true;
+  })
+
+  // 🔹 SAFE search filter ✅
+  .filter((item) => {
+    if (!filter) return true;
+
+    const name = item.name?.toLowerCase() || "";
+    const email = item.email?.toLowerCase() || "";
+
+    return (
+      name.includes(filter.toLowerCase()) ||
+      email.includes(filter.toLowerCase())
     );
+  })
+
+  // 🔹 sort
+  .sort((a, b) => {
+    if (sortOrder === "latest") {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    if (sortOrder === "oldest") {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    }
+    if (sortOrder === "az") {
+      return (a.name || "").localeCompare(b.name || "");
+    }
+    if (sortOrder === "za") {
+      return (b.name || "").localeCompare(a.name || "");
+    }
+    return 0;
+  });
+
+
 
   return (
     <section className="bg-white rounded-xl shadow-sm p-6">
@@ -78,16 +106,38 @@ const ContactList = () => {
       </div>
 
       {/* Search */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search by name or email..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-lg 
-          focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+      <div className="mb-4 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+  {/* Search */}
+  <input
+    type="text"
+    placeholder="Search by name or email..."
+    value={filter}
+    onChange={(e) => setFilter(e.target.value)}
+    className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-lg 
+    focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  <div className="flex items-center gap-4">
+    {/* 🔽 Sort */}
+    <select
+      value={sortOrder}
+      onChange={(e) => setSortOrder(e.target.value)}
+      className="px-3 py-2 border border-gray-300 rounded-lg text-sm
+      focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option value="">Sort</option>
+      <option value="latest">Latest → Oldest</option>
+      <option value="oldest">Oldest → Latest</option>
+      <option value="az">Name A → Z</option>
+      <option value="za">Name Z → A</option>
+    </select>
+
+    <div className="text-sm text-gray-500 whitespace-nowrap">
+      Total Records: {filteredData.length}
+    </div>
+  </div>
+</div>
+
 
       {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-gray-200">

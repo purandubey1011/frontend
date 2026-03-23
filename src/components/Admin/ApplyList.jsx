@@ -6,9 +6,13 @@ const ApplyList = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState(""); 
+  const [creatorFilter, setCreatorFilter] = useState("");
+const [followersRange, setFollowersRange] = useState("");
 
   // ✅ NEW: toggle test users
   const [showTestUsers, setShowTestUsers] = useState(false);
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -25,20 +29,52 @@ const ApplyList = () => {
     loadData();
   }, []);
 
-  // ✅ filter logic (search + test email removal)
   const filteredData = data
-    .filter((item) => {
-      // hide test users if toggle OFF
-      if (!showTestUsers && item.email.toLowerCase().includes("test")) {
-        return false;
-      }
-      return true;
-    })
-    .filter(
-      (item) =>
-        item.username.toLowerCase().includes(filter.toLowerCase()) ||
-        item.email.toLowerCase().includes(filter.toLowerCase())
+  // 🔹 hide test users
+  .filter((item) => {
+    if (!showTestUsers && item.email.toLowerCase().includes("test")) {
+      return false;
+    }
+    return true;
+  })
+
+  // 🔹 search filter (🔥 MISSING PIECE)
+  .filter((item) => {
+    if (!filter) return true;
+
+    return (
+      item.username.toLowerCase().includes(filter.toLowerCase()) ||
+      item.email.toLowerCase().includes(filter.toLowerCase())
     );
+  })
+
+  // 🔹 creator filter
+  .filter((item) => {
+    if (!creatorFilter) return true;
+    return item.isCreator === creatorFilter;
+  })
+
+  // 🔹 followers range filter
+  .filter((item) => {
+    const f = item.followers;
+    if (!followersRange) return true;
+
+    if (followersRange === "0-1k") return f <= 1000;
+    if (followersRange === "1k-10k") return f > 1000 && f <= 10000;
+    if (followersRange === "10k-100k") return f > 10000 && f <= 100000;
+    if (followersRange === "100k+") return f > 100000;
+
+    return true;
+  })
+
+  // 🔹 followers sort
+  .sort((a, b) => {
+    if (sortOrder === "lowToHigh") return a.followers - b.followers;
+    if (sortOrder === "highToLow") return b.followers - a.followers;
+    return 0;
+  });
+
+
 
   return (
     <section className="bg-white rounded-xl shadow-sm p-6">
@@ -78,15 +114,49 @@ const ApplyList = () => {
       </div>
 
       {/* Search */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Search by username or email..."
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+    {/* Search */}
+     <div className="mb-4 w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+  {/* Search */}
+  <input
+    type="text"
+    placeholder="Search by name or email..."
+    value={filter}
+    onChange={(e) => setFilter(e.target.value)}
+    className="w-full sm:w-80 px-4 py-2 border border-gray-300 rounded-lg 
+    focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+
+  <div className="flex items-center gap-4">
+    <select
+  value={creatorFilter}
+  onChange={(e) => setCreatorFilter(e.target.value)}
+  className="px-3 py-2 border rounded-lg"
+>
+  <option value="">All Users</option>
+  <option value="Yes">Creators Only</option>
+  <option value="No">Non-Creators</option>
+</select>
+
+<select
+  value={followersRange}
+  onChange={(e) => setFollowersRange(e.target.value)}
+  className="px-3 py-2 border rounded-lg"
+>
+  <option value="">All Followers</option>
+  <option value="0-1k">0 – 1K</option>
+  <option value="1k-10k">1K – 10K</option>
+  <option value="10k-100k">10K – 100K</option>
+  <option value="100k+">100K+</option>
+</select>
+
+
+    {/* Count */}
+    <div className="text-sm text-gray-500 whitespace-nowrap">
+      Total Records: {filteredData.length}
+    </div>
+  </div>
+</div>
+
 
       {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-gray-200">
