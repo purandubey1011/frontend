@@ -1,11 +1,16 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
+import ApplyPopup from "./ApplyPopup";
 import HeroVideo from "../utils/Herovideo.jsx";
+
+const IOS_LINK = "https://apps.apple.com/us/app/unyfer/id6755072414";
+const ANDROID_LINK = "https://play.google.com/store/apps/details?id=com.unyfers.app";
 
 const Hero = () => {
   const componentRef = useRef(null);
   const buttonRef = useRef(null);
+  const [downloadIntent, setDownloadIntent] = useState(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -49,7 +54,7 @@ const Hero = () => {
         </h1>
 
         <p className="hero-subtitle mx-auto mt-4 max-w-4xl text-sm leading-relaxed text-gray-600 sm:text-lg">
-          Unyfer lets creators connect 1:1 through secure calls & chats — where your
+          Unyfer lets creators connect 1:1 through secure calls & chats - where your
           time, attention, and presence hold real value.
         </p>
 
@@ -63,25 +68,35 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href="https://apps.apple.com/us/app/unyfer/id6755072414"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={() =>
+                setDownloadIntent({
+                  platform: "iOS",
+                  redirectUrl: IOS_LINK,
+                  nonce: Date.now(),
+                })
+              }
               className="inline-flex min-w-[220px] items-center justify-center gap-3 rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm transition hover:border-purple-300 hover:bg-purple-50 sm:text-base"
             >
               <FaApple size={20} />
               <span>Download For IOS</span>
-            </a>
+            </button>
 
-            <a
-              href="https://play.google.com/store/apps/details?id=com.unyfers.app"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              onClick={() =>
+                setDownloadIntent({
+                  platform: "Android",
+                  redirectUrl: ANDROID_LINK,
+                  nonce: Date.now(),
+                })
+              }
               className="inline-flex min-w-[220px] items-center justify-center gap-3 rounded-full bg-purple-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-purple-700 sm:text-base"
             >
               <FaGooglePlay size={18} />
               <span>Download For Android</span>
-            </a>
+            </button>
           </div>
 
           <p className="mt-3 text-[10px] text-gray-400 sm:text-sm">
@@ -91,6 +106,15 @@ const Hero = () => {
       </div>
 
       <HeroVideo />
+
+      {downloadIntent && (
+        <ApplyPopup
+          key={downloadIntent.nonce}
+          onClose={() => setDownloadIntent(null)}
+          platform={downloadIntent.platform}
+          redirectUrl={downloadIntent.redirectUrl}
+        />
+      )}
     </div>
   );
 };

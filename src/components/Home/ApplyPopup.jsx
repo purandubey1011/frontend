@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { submitApplyForm } from "../services/adminApi";
+import { submitDownloadForm } from "../services/adminApi";
 
-// ✅ axios api import
-
-const ApplyPopup = ({ onClose }) => {
+const ApplyPopup = ({ onClose, platform = "Android", redirectUrl }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     phone: "",
     followers: "",
     isCreator: "",
+    platform,
   });
 
   const [loading, setLoading] = useState(false);
   const popupRef = useRef(null);
 
-  // GSAP animation (unchanged)
   useEffect(() => {
     gsap.fromTo(
       popupRef.current,
@@ -26,6 +24,17 @@ const ApplyPopup = ({ onClose }) => {
       { scale: 1, opacity: 1, duration: 0.6, ease: "back.out" }
     );
   }, []);
+
+  useEffect(() => {
+    setFormData({
+      username: "",
+      email: "",
+      phone: "",
+      followers: "",
+      isCreator: "",
+      platform,
+    });
+  }, [platform]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,9 +44,8 @@ const ApplyPopup = ({ onClose }) => {
     }));
   };
 
-  // 🔥 VALIDATION (unchanged)
   const validateForm = () => {
-    const { username, email, phone, followers, isCreator } = formData;
+    const { username, email, phone, followers, isCreator, platform } = formData;
 
     if (!username.trim()) {
       toast.error("Username is required!");
@@ -66,23 +74,39 @@ const ApplyPopup = ({ onClose }) => {
       return false;
     }
 
+    if (!platform) {
+      toast.error("Platform is required!");
+      return false;
+    }
+
     return true;
   };
 
-  // ✅ AXIOS BASED SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setLoading(true);
+    const downloadWindow = redirectUrl ? window.open("", "_blank") : null;
 
     try {
-      const { data } = await submitApplyForm(formData);
+      const { data } = await submitDownloadForm(formData);
 
       toast.success(data.message || "Application submitted successfully!");
       onClose();
+
+      if (redirectUrl) {
+        if (downloadWindow && !downloadWindow.closed) {
+          downloadWindow.location.href = redirectUrl;
+        } else {
+          window.open(redirectUrl, "_blank");
+        }
+      }
     } catch (error) {
+      if (downloadWindow && !downloadWindow.closed) {
+        downloadWindow.close();
+      }
       toast.error(
         error.response?.data?.error || "Server error, try again later!"
       );
@@ -91,41 +115,53 @@ const ApplyPopup = ({ onClose }) => {
     }
   };
 
-  // 🔥 UI COMPLETELY UNCHANGED
   return (
-    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
       <div
         ref={popupRef}
-        className="bg-white rounded-lg p-6 max-w-md w-full mx-4 relative shadow-lg"
+        className="relative mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl font-bold"
+          className="absolute right-3 top-3 text-xl font-bold text-gray-600 hover:text-gray-900"
         >
           &times;
         </button>
 
-        <h2 className="text-2xl font-bold mb-4 text-purple-600">
+        <h2 className="mb-2 text-2xl font-bold text-purple-600">
           Apply for Access
         </h2>
+        <p className="mb-4 text-sm text-gray-500">
+          Complete the form to continue to the {platform} app download.
+        </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Username */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="mb-1 block font-semibold text-gray-700">
+              Downloading For
+            </label>
+            <input
+              name="platform"
+              value={formData.platform}
+              readOnly
+              className="w-full rounded border border-purple-200 bg-purple-50 px-3 py-2 font-medium text-purple-700"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block font-semibold text-gray-700">
               Instagram Username
             </label>
             <input
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="w-full rounded border border-gray-300 px-3 py-2"
             />
           </div>
 
-          {/* Email */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="mb-1 block font-semibold text-gray-700">
               Email
             </label>
             <input
@@ -133,13 +169,12 @@ const ApplyPopup = ({ onClose }) => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="w-full rounded border border-gray-300 px-3 py-2"
             />
           </div>
 
-          {/* Phone */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="mb-1 block font-semibold text-gray-700">
               Phone
             </label>
             <input
@@ -147,13 +182,12 @@ const ApplyPopup = ({ onClose }) => {
               type="tel"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="w-full rounded border border-gray-300 px-3 py-2"
             />
           </div>
 
-          {/* Followers */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="mb-1 block font-semibold text-gray-700">
               Followers Count
             </label>
             <input
@@ -162,13 +196,12 @@ const ApplyPopup = ({ onClose }) => {
               min="0"
               value={formData.followers}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2"
+              className="w-full rounded border border-gray-300 px-3 py-2"
             />
           </div>
 
-          {/* Creator */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
+            <label className="mb-1 block font-semibold text-gray-700">
               Are you a Creator?
             </label>
             <div className="flex items-center gap-4">
@@ -196,13 +229,12 @@ const ApplyPopup = ({ onClose }) => {
             </div>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 rounded-full w-full transition"
+            className="w-full rounded-full bg-purple-600 px-5 py-2 font-semibold text-white transition hover:bg-purple-700"
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? "Submitting..." : `Submit & Continue to ${platform}`}
           </button>
         </form>
       </div>
